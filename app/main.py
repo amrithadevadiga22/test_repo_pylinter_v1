@@ -2,9 +2,17 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import joblib
 import pandas as pd
+import os
+
 
 app = FastAPI()
-model = joblib.load("model.pkl")
+#model = joblib.load("model.pkl")
+# Make sure the model is loaded from the correct path
+
+# Correct model path explicitly
+model_path = "/app/app/model.pkl"  # Absolute path to model.pkl in the Docker container
+print(f"Loading model from: {model_path}")
+model = joblib.load(model_path)
 
 class ShipmentFeatures(BaseModel):
     Warehouse_block: str
